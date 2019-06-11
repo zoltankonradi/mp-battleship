@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font-family: 'Staatliches', cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.square {
+  display: inline-block;
+  -webkit-box-shadow: 0 0 3px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0 0 3px 1px rgba(0,0,0,0.75);
+  box-shadow: 0 0 3px 1px rgba(0,0,0,0.75);
+  width: 30px;
+  height: 30px;
+  margin: -8px 3px;
+}
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#opponent-board {
+  display: inline-block;
+}
+/*html {*/
+/*  background:  url(http://upload.wikimedia.org/wikipedia/commons/d/dd/Muybridge_race_horse_animated.gif) no-repeat center center fixed;*/
+/*  background-size: cover;*/
+/*}*/
