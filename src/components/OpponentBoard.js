@@ -1,7 +1,8 @@
 import React from 'react';
-import {PlayerSquare} from './board_components/PlayerSquares'
+import {OpponentSquare} from './board_components/OpponentSquares'
 
 export class OpponentBoard extends React.Component {
+
     createBoard = () => {
         let rows = [];
         let idCounter = 0;
@@ -10,7 +11,7 @@ export class OpponentBoard extends React.Component {
             let squares = [];
 
             for (let j = 0; j < 10; j++) {
-                squares.push(<PlayerSquare key={j} id={"o" + (idCounter + j)}/>);
+                squares.push(<OpponentSquare key={j} id={"o" + (idCounter + j)} x={j} y={i} gameState={this.props.gameState[i][j]}/>);
             }
 
             idCounter += 10;

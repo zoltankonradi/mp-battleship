@@ -10,7 +10,8 @@ export class PlayerBoard extends React.Component {
             let squares = [];
 
             for (let j = 0; j < 10; j++) {
-                squares.push(<PlayerSquare key={j} id={"p" + (idCounter + j)}/>);
+                squares.push(<PlayerSquare key={j} id={"p" + (idCounter + j)} x={j} y={i} gameState={this.props.gameState}
+                changeGameState={this.props.changeGameState}/>);
             }
 
             idCounter += 10;
