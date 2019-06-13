@@ -7,7 +7,6 @@ export class PlayerSquare extends React.Component {
         this.state = {
             clicked: false
         };
-        // this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick = () => {
@@ -23,7 +22,7 @@ export class PlayerSquare extends React.Component {
     render() {
         return (
             <button className={`square ${this.state.clicked ? 'black' : 'white'}`} onClick={this.handleClick} id={this.props.id}>
-                {this.state.clicked ? 'X' : '.'}
+                {this.state.clicked ? <i className="fas fa-times fa-lg"> </i> : <i className="fas fa-circle"> </i>}
             </button>
         )
     }

@@ -2,10 +2,15 @@ import React from 'react';
 import {PlayerSquare} from "./board_components/PlayerSquares";
 
 export class PlayerBoard extends React.Component {
+
     createBoard = () => {
+        const headerRow = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         let rows = [];
         let idCounter = 0;
-
+        rows.push(<span id="boardEmptyLetter">0</span>);
+        for (let i = 0; i < headerRow.length; i++) {
+            rows.push(<span className="boardLetters" >{headerRow[i]}</span>)
+        }
         for (let i = 0; i < 10; i++) {
             let squares = [];
 
@@ -15,7 +20,7 @@ export class PlayerBoard extends React.Component {
             }
 
             idCounter += 10;
-            rows.push(<p key={i}>{squares}</p>);
+            rows.push(<p key={i}>{i + 1} {squares}</p>);
         }
 
         return rows;

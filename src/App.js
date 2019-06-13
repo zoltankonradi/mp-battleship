@@ -1,9 +1,10 @@
 import React from 'react';
 import {PlayerBoard} from './components/PlayerBoard';
 import {OpponentBoard} from './components/OpponentBoard';
+import {LogWindow} from './components/LogWindow';
+import {ChatWindow} from "./components/ChatWindow";
 
 export class App extends React.Component {
-
     constructor(props) {
         super(props);
         this.changeGameState = this.changeGameState.bind(this);
@@ -24,13 +25,13 @@ export class App extends React.Component {
     }
 
     componentDidMount() {
-        this.generateShip(5);
         this.generateShip(4);
         this.generateShip(3);
         this.generateShip(3);
         this.generateShip(2);
         this.generateShip(2);
         this.generateShip(2);
+        this.generateShip(1);
         this.generateShip(1);
         this.generateShip(1);
         this.generateShip(1);
@@ -132,10 +133,16 @@ export class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <div className="row">
+                <div id="feature1">
+                    <LogWindow />
+                </div>
+                <div id="feature2">
+                    <ChatWindow />
+                </div>
+                <div id="feature3">
                     <PlayerBoard gameState={this.state.gameState} changeGameState={this.changeGameState}/>
                 </div>
-                <div className="row">
+                <div id="feature4">
                     <OpponentBoard gameState={this.state.gameState}/>
                 </div>
             </div>

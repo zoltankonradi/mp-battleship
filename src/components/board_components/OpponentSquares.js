@@ -1,26 +1,15 @@
 import React from 'react';
 
 export class OpponentSquare extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            clicked: []
-        };
-        // this.handleClick = this.handleClick.bind(this);
-    }
-
     render() {
         let squareContent;
-
         if (this.props.gameState === 1) {
-            squareContent = 'X';
+            squareContent = <i className="fas fa-square-full"> </i>;
         } else if(this.props.gameState === 2) {
-            squareContent = 'O';
+            squareContent = <i className="far fa-circle fa-lg"> </i>;
         } else {
             squareContent = '.';
         }
-
         return (
             <button className={`square ${squareContent !== '.' ? 'black' : 'white'}`} id={this.props.id}>
                 {squareContent}
