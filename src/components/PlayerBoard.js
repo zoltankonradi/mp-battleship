@@ -16,11 +16,11 @@ export class PlayerBoard extends React.Component {
 
             for (let j = 0; j < 10; j++) {
                 squares.push(<PlayerSquare key={j} id={"p" + (idCounter + j)} x={j} y={i} gameState={this.props.gameState}
-                changeGameState={this.props.changeGameState}/>);
+                changeGameState={this.props.changeGameState} changePlayersTurn={this.props.changePlayersTurn}/>);
             }
 
             idCounter += 10;
-            rows.push(<p key={i}>{i + 1} {squares}</p>);
+            rows.push(<p key={i}><span className="boardNumbers">{i + 1}</span> {squares}</p>);
         }
 
         return rows;
@@ -28,7 +28,7 @@ export class PlayerBoard extends React.Component {
 
     render() {
         return (
-            <div id="player-board" >
+            <div id="player-board" className={this.props.playersTurn ? "playerTurn" : "notMyTurn"} >
                 {this.createBoard()}
             </div>
         )

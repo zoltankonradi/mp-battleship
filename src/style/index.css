@@ -3,11 +3,15 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+/*///////*/
+/*DISPLAY*/
+/*///////*/
 .container {
     padding: 20px;
     max-width: 1080px;
     margin: 0 auto;
-    background-color: orange;
+    background-color: whitesmoke;
+    box-shadow: 0 0 10px 0 rgba(128,128,128,1);
     display: grid;
     grid-template-columns: auto auto;
     grid-auto-rows: minmax(100px, auto);
@@ -21,13 +25,24 @@ body {
     grid-row: 2;
 }
 #feature3 {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: 1;
+    grid-row: 3;
 }
 #feature4 {
     grid-column: 2;
+    grid-row: 1;
+}
+#feature5 {
+    grid-column: 2;
     grid-row: 2;
 }
+#feature6 {
+    grid-column: 2;
+    grid-row: 3;
+}
+/*///////*/
+/*BUTTONS*/
+/*///////*/
 .square {
     display: inline-block;
     justify-content: center;
@@ -38,54 +53,154 @@ body {
     height: 30px;
     margin: -8px 3px;
     background-color: whitesmoke;
+    color: #373737;
     border-style: solid;
     border-width: 0;
     float: right;
 }
 button:focus {
+    transition: 0.4s;
     outline: 0;
+    opacity: 1;
+    background-color: lightblue;
 }
 .white {
     color: whitesmoke;
 }
 .black {
     color: black;
-    font-weight: bold;
+}
+/*//////////*/
+/*RIGHT SIDE*/
+/*//////////*/
+#player-board {
+    box-shadow: -5px 0 5px -4px grey, 5px 0 5px -4px grey;
+    border-width: 0;
+    border-color: transparent;
+    display: inline-block;
+    padding: 10px 16px;
+}
+#turn-display {
+    box-shadow: -5px 0 5px -4px grey, 5px 0 5px -4px grey;
+    width: 383px;
+    height: 80px;
+    padding: 0 10px;
+    display: inline-block;
+    color: #373737;
+    text-align: center;
+}
+#turn-display-text1 {
+    animation: fadein1 1s;
+    display: inline-block;
+    cursor: default;
+}
+#turn-display-text2 {
+    animation: fadein2 1s;
+    display: inline-block;
+    cursor: default;
+}
+#flag-usa {
+    margin-bottom: -13px;
+    margin-right: 20px;
+    width: 20%;
+    display: inline-block;
+    animation: fadein1 1s;
+    box-shadow: 0 0 10px 0 rgba(128,128,128,1);
+    border-radius: 15%;
+}
+#flag-japan {
+    margin-bottom: -13px;
+    margin-left: 20px;
+    width: 20%;
+    display: inline-block;
+    animation: fadein1 1s;
+    box-shadow: 0 0 10px 0 rgba(128,128,128,1);
+    border-radius: 15%;
+}
+@keyframes fadein1 {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@keyframes fadein2 {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
 }
 #opponent-board {
-    -webkit-box-shadow: 0 0 5px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 0 5px 2px rgba(0,0,0,0.75);
-    box-shadow: 0 0 5px 2px rgba(0,0,0,0.75);
+    box-shadow: -5px 0 5px -4px grey, 5px 0 5px -4px grey;
     display: inline-block;
-    padding: 10px 16px;
-    background-color: lightcoral;
-    margin-top: 10px;
+    padding: 20px 16px 10px 16px;
+    margin-top: -40px;
 }
-#player-board {
-    -webkit-box-shadow: 0 0 5px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 0 5px 2px rgba(0,0,0,0.75);
-    box-shadow: 0 0 5px 2px rgba(0,0,0,0.75);
-    display: inline-block;
-    padding: 10px 16px;
-    background-color: lightblue;
-}
-#chat-window,
+/*/////////*/
+/*LEFT SIDE*/
+/*/////////*/
 #log-window {
-    margin-left: 30px;
+    box-shadow: 0 0 5px 1px rgba(128,128,128,1);
+    padding: 10px 10px;
+    margin-left: 45px;
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    display: inline-block;
+}
+#status-window {
+    box-shadow: 0 0 5px 1px rgba(128,128,128,1);
+    padding: 10px 10px;
+    margin-left: 45px;
     width: 500px;
     height: 100px;
-    background-color: red;
+    background-color: white;
     display: inline-block;
 }
+#chat-window {
+    box-shadow: 0 0 5px 1px rgba(128,128,128,1);
+    padding: 10px 10px;
+    margin-top: 10px;
+    margin-left: 45px;
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    display: inline-block;
+}
+/*/////////////*/
+/*BOARD LETTERS*/
+/*/////////////*/
 .boardLetters {
     margin-left: 14px;
     margin-right: 15px;
     cursor: default;
+    color: #373737;
+    font-weight: bold;
 }
 #boardEmptyLetter {
     margin-right: 5px;
     color: transparent;
     cursor: default;
+}
+.boardNumbers {
+    cursor: default;
+    color: #373737;
+    font-weight: bold;
+}
+/*///////////////////*/
+/*TURN DISPLAY COLORS*/
+/*///////////////////*/
+.playerTurn {
+    background-color: lightblue;
+}
+.notMyTurn {
+    background-color: white;
+}
+.opponentTurn {
+    background-color: #ff8888;
 }
 /*html {*/
 /*  background:  url(http://upload.wikimedia.org/wikipedia/commons/d/dd/Muybridge_race_horse_animated.gif) no-repeat center center fixed;*/

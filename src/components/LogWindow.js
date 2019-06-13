@@ -4,15 +4,7 @@ export class LogWindow extends React.Component {
     render() {
         return (
             <div id="log-window">
-                <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                </ul>
-                <div id="status-window">
-                    <h1>Ship status</h1>
-                </div>
+                <h1>Log window</h1>
             </div>
         )
     }

@@ -17,6 +17,7 @@ export class PlayerSquare extends React.Component {
             clicked: true
         });
         this.props.changeGameState(this.props.y, this.props.x);
+        this.props.changePlayersTurn();
     };
 
     render() {

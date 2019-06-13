@@ -19,7 +19,7 @@ export class OpponentBoard extends React.Component {
             }
 
             idCounter += 10;
-            rows.push(<p key={i}>{i + 1} {squares}</p>);
+            rows.push(<p key={i}><span className="boardNumbers">{i + 1}</span> {squares}</p>);
         }
 
         return rows;
@@ -27,7 +27,7 @@ export class OpponentBoard extends React.Component {
 
     render() {
         return (
-            <div id="opponent-board" >
+            <div id="opponent-board" className={this.props.playersTurn ? "notMyTurn" : "opponentTurn"}>
                 {this.createBoard()}
             </div>
         )

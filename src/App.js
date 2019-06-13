@@ -3,12 +3,16 @@ import {PlayerBoard} from './components/PlayerBoard';
 import {OpponentBoard} from './components/OpponentBoard';
 import {LogWindow} from './components/LogWindow';
 import {ChatWindow} from "./components/ChatWindow";
+import {StatusWindow} from "./components/StatusWindow";
+import {TurnDisplay} from "./components/TurnDisplay";
 
 export class App extends React.Component {
     constructor(props) {
         super(props);
         this.changeGameState = this.changeGameState.bind(this);
+        this.changePlayersTurn = this.changePlayersTurn.bind(this);
         this.state = {
+            playersTurn: true,
             gameState: [
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0],
@@ -130,6 +134,20 @@ export class App extends React.Component {
         })
     };
 
+    changePlayersTurn = () => {
+        if (this.state.playersTurn) {
+            this.setState({
+                playersTurn: false
+            })
+        }
+    };
+
+    forcePlayerChange = () => {
+        this.setState({
+            playersTurn: true
+        })
+    };
+
     render() {
         return (
             <div className="container">
@@ -137,14 +155,21 @@ export class App extends React.Component {
                     <LogWindow />
                 </div>
                 <div id="feature2">
-                    <ChatWindow />
+                    <StatusWindow />
                 </div>
                 <div id="feature3">
-                    <PlayerBoard gameState={this.state.gameState} changeGameState={this.changeGameState}/>
+                    <ChatWindow />
                 </div>
                 <div id="feature4">
-                    <OpponentBoard gameState={this.state.gameState}/>
+                    <PlayerBoard gameState={this.state.gameState} changeGameState={this.changeGameState} playersTurn={this.state.playersTurn} changePlayersTurn={this.changePlayersTurn}/>
                 </div>
+                <div id="feature5">
+                    <TurnDisplay playersTurn={this.state.playersTurn}/>
+                </div>
+                <div id="feature6">
+                    <OpponentBoard gameState={this.state.gameState} playersTurn={this.state.playersTurn}/>
+                </div>
+                <button onClick={this.forcePlayerChange}>ForceChange</button>
             </div>
         );
     }

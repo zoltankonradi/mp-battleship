@@ -11,7 +11,7 @@ export class OpponentSquare extends React.Component {
             squareContent = '.';
         }
         return (
-            <button className={`square ${squareContent !== '.' ? 'black' : 'white'}`} id={this.props.id}>
+            <button className={`square ${squareContent !== '.' ? 'black' : 'white'}`}>
                 {squareContent}
             </button>
         )
