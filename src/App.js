@@ -13,7 +13,9 @@ export class App extends React.Component {
         this.changePlayersTurn = this.changePlayersTurn.bind(this);
         this.checkForHit = this.checkForHit.bind(this);
         this.resetHitLogger = this.resetHitLogger.bind(this);
+        this.changePlayerFleetCount = this.changePlayerFleetCount.bind(this);
         this.state = {
+            playerFleetStatus: [4, 3, 2, 1],
             hitLog: ['none', 'none', 'none'],
             playersTurn: true,
             gameState: [
@@ -27,7 +29,8 @@ export class App extends React.Component {
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0]
-            ]
+            ],
+            opponentFleetStatus: [4, 3, 2, 1]
         }
     }
 
@@ -155,21 +158,23 @@ export class App extends React.Component {
     changeGameState = (x, y) => {
         let currentGameState = this.state.gameState;
         currentGameState[y][x] = 5;
-        this.setState({
-            gameState: currentGameState
-        })
+        this.setState({ gameState: currentGameState })
     };
 
     changePlayersTurn = () => {
-        if (this.state.playersTurn) {
-            this.setState({
-                playersTurn: false
-            })
-        }
+        if (this.state.playersTurn) { this.setState({ playersTurn: false }) }
     };
 
+    changePlayerFleetCount = (size) => {
+        let fleet = this.state.playerFleetStatus;
+        fleet[size - 1] -= 1;
+        this.setState({ playerFleetStatus: fleet })
+    };
+
+    ////////////////////////////////////
     forcePlayerChange = () => {
         this.setState({
+            hitLog: [2, 5, 5],
             playersTurn: true
         })
     };
@@ -178,10 +183,11 @@ export class App extends React.Component {
         return (
             <div className="container">
                 <div id="feature1">
-                    <LogWindow resetHitLogger={this.resetHitLogger} hitLog={this.state.hitLog} gameState={this.state.gameState}/>
+                    <LogWindow resetHitLogger={this.resetHitLogger} hitLog={this.state.hitLog} gameState={this.state.gameState}
+                               playersTurn={this.state.playersTurn} changePlayerFleetCount={this.changePlayerFleetCount}/>
                 </div>
                 <div id="feature2">
-                    <StatusWindow />
+                    <StatusWindow playerFleetStatus={this.state.playerFleetStatus} opponentFleetStatus={this.state.opponentFleetStatus}/>
                 </div>
                 <div id="feature3">
                     <ChatWindow />

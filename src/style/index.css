@@ -1,5 +1,6 @@
 body {
     font-family: 'Staatliches', cursive;
+    color: #373737;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -155,15 +156,16 @@ button:focus {
     box-shadow: 0 0 5px 1px rgba(128,128,128,1);
     padding: 10px 10px;
     margin-left: 45px;
+    margin-top: -40px;
     width: 500px;
-    height: 100px;
+    height: 140px;
     background-color: white;
     display: inline-block;
 }
 #chat-window {
     box-shadow: 0 0 5px 1px rgba(128,128,128,1);
     padding: 10px 10px;
-    margin-top: 10px;
+    margin-top: 50px;
     margin-left: 45px;
     width: 500px;
     height: 300px;
@@ -177,7 +179,6 @@ button:focus {
     margin-left: 14px;
     margin-right: 15px;
     cursor: default;
-    color: #373737;
     font-weight: bold;
 }
 #boardEmptyLetter {
@@ -187,7 +188,6 @@ button:focus {
 }
 .boardNumbers {
     cursor: default;
-    color: #373737;
     font-weight: bold;
 }
 /*///////////////////*/
@@ -221,10 +221,136 @@ button:focus {
 /*LOG WINDOW*/
 /*//////////*/
 .log-message {
-    font-weight: bold;
     font-size: 25px;
     cursor: default;
-    margin-top: -5px;
+    border-radius: 5px;
+    margin-bottom: -15px;
+    padding: 3px 0 0 5px;
+    width: 255px;
+}
+#log-m-blue {
+    background-color: lightblue;
+    box-shadow: 0 0 5px 1px rgba(173,216,230,1);
+}
+#log-m-red {
+    background-color: #ff8888;
+    box-shadow: 0 0 5px 1px rgba(255,136,136,1);
+}
+#log-messages p {
+    opacity: 0.2;
+}
+#log-messages p + p {
+    opacity: 0.4;
+}
+#log-messages p + p + p {
+    opacity: 0.6;
+}
+#log-messages p + p + p + p {
+    opacity: 0.8;
+}
+#log-messages p + p + p + p + p {
+    opacity: 1;
+}
+#status-title,
+#log-title {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    cursor: default;
+}
+.dummy-p {
+    background-color: transparent;
+    color: transparent;
+    cursor: default;
+}
+/*/////////////*/
+/*STATUS WINDOW*/
+/*/////////////*/
+#status-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-auto-rows: minmax(100px, auto);
+}
+#status-player {
+    width: 250px;
+    height: 80px;
+    grid-column: 1;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-auto-rows: minmax(20px, auto);
+}
+#status-opponent {
+    width: 250px;
+    height: 80px;
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-auto-rows: minmax(20px, auto);
+}
+.status-flag {
+    margin: 0 50px -5px 50px;
+    width: 10%;
+    display: inline-block;
+    box-shadow: 0 0 7px 0 rgba(128,128,128,1);
+    border-radius: 13%;
+}
+.player-status-numbers {
+    cursor: default;
+    font-size: 20px;
+    margin-bottom: -10px;
+    background-color: lightblue;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 1px rgba(173,216,230,1);
+    width: 100px;
+    padding: 3px;
+}
+#player-status-id1{
+    margin-left: 10px;
+    grid-column: 1;
+    grid-row: 1;
+}
+#player-status-id2{
+    margin-left: 10px;
+    grid-column: 1;
+    grid-row: 2;
+}
+#player-status-id3{
+    grid-column: 2;
+    grid-row: 1;
+}
+#player-status-id4{
+    grid-column: 2;
+    grid-row: 2;
+}
+.opponent-status-numbers {
+    cursor: default;
+    font-size: 20px;
+    margin-bottom: -10px;
+    border-radius: 5px;
+    background-color: #ff8888;
+    box-shadow: 0 0 5px 1px rgba(255,136,136,1);
+    width: 100px;
+    padding: 3px;
+}
+#opponent-status-id1{
+    margin-left: 10px;
+    grid-column: 1;
+    grid-row: 1;
+}
+#opponent-status-id2{
+    margin-left: 10px;
+    grid-column: 1;
+    grid-row: 2;
+}
+#opponent-status-id3{
+    grid-column: 2;
+    grid-row: 1;
+}
+#opponent-status-id4{
+    grid-column: 2;
+    grid-row: 2;
 }
 /*html {*/
 /*  background:  url(http://upload.wikimedia.org/wikipedia/commons/d/dd/Muybridge_race_horse_animated.gif) no-repeat center center fixed;*/
