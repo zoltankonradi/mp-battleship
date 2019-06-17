@@ -1,0 +1,105 @@
+
+/*///////////////////*/
+/*REGISTRATION SCREEN*/
+/*///////////////////*/
+#registration-container {
+    background-color: white;
+    box-shadow: 0 0 7px 1px rgba(128,128,128,1);
+    margin: 300px auto;
+    padding: 50px;
+    width: 500px;
+}
+#registration-form {
+    padding-left: 25px;
+}
+/*TITLE*/
+#registration-title {
+    font-size: 45px;
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 10px;
+    cursor: default;
+}
+/*INPUT*/
+#registration-input-active {
+    font-family: 'Staatliches', cursive;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 18px;
+    width: 250px;
+    font-size: 25px;
+    color: #353535;
+    font-weight: bold;
+    border-radius: 5px;
+    border:1px solid cornflowerblue;
+    background-color: transparent;
+}
+#registration-input-disabled {
+    font-family: 'Staatliches', cursive;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 18px;
+    width: 250px;
+    font-size: 25px;
+    color: grey;
+    font-weight: bold;
+    border-radius: 5px;
+    border:1px solid grey;
+    background-color: transparent;
+}
+#registration-input-disabled:focus,
+#registration-input-active:focus {
+    outline: 0;
+}
+/*BUTTON*/
+#registration-button-active {
+    font-family: 'Staatliches', cursive;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 18px;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: cornflowerblue;
+    border:1px solid cornflowerblue;
+    background-color: transparent;
+}
+#registration-button-disabled {
+    font-family: 'Staatliches', cursive;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 18px;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: grey;
+    border:1px solid grey;
+    background-color: transparent;
+}
+#registration-button-disabled:focus {
+    outline: 0;
+}
+#registration-button-disabled:hover {
+    cursor: default;
+}
+#registration-button-active:hover {
+    background-color: cornflowerblue;
+    color: white;
+    cursor: pointer;
+}
+#registration-button-active:focus {
+    outline: 0;
+}
+/*/////*/
+/*MISC*/
+/*/////*/
+body {
+    font-family: 'Staatliches', cursive;
+    color: #373737;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+html {
+  background:  url(https://66.media.tumblr.com/c807517ab064a22f33ef240501b52842/tumblr_pf9zh8Jkhi1thdeaeo1_400.gif) no-repeat center center fixed;
+  background-size: cover;
+}
