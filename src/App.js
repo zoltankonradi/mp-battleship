@@ -5,8 +5,8 @@ import {LogWindow} from './components/LogWindow';
 import {ChatWindow} from "./components/ChatWindow";
 import {StatusWindow} from "./components/StatusWindow";
 import {TurnDisplay} from "./components/TurnDisplay";
-import './style/game.css';
-import SocketIOClient from 'socket.io-client';
+// import './style/game.css';
+// import SocketIOClient from 'socket.io-client';
 
 export class App extends React.Component {
     constructor(props) {

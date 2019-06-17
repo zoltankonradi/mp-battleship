@@ -4,9 +4,146 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-/*///////*/
-/*DISPLAY*/
-/*///////*/
+/*///////////////////*/
+/*REGISTRATION SCREEN*/
+/*///////////////////*/
+#registration-container {
+    background-color: white;
+    box-shadow: 0 0 7px 1px rgba(128,128,128,1);
+    margin: 300px auto;
+    padding: 50px;
+    width: 600px;
+}
+#registration-form {
+    padding-left: 25px;
+}
+/*TITLE*/
+#registration-title {
+    font-size: 45px;
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 10px;
+    cursor: default;
+}
+/*INPUT*/
+#registration-input-active {
+    font-family: 'Staatliches', cursive;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 18px;
+    width: 300px;
+    font-size: 25px;
+    color: #353535;
+    font-weight: bold;
+    border-radius: 5px;
+    border:1px solid cornflowerblue;
+    background-color: transparent;
+}
+#registration-input-disabled {
+    font-family: 'Staatliches', cursive;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 18px;
+    width: 300px;
+    font-size: 25px;
+    color: grey;
+    font-weight: bold;
+    border-radius: 5px;
+    border:1px solid grey;
+    background-color: transparent;
+}
+#registration-input-disabled:focus,
+#registration-input-active:focus {
+    outline: 0;
+}
+/*BUTTON*/
+#registration-button-active {
+    font-family: 'Staatliches', cursive;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 18px;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: cornflowerblue;
+    border:1px solid cornflowerblue;
+    background-color: transparent;
+}
+#registration-button-disabled {
+    font-family: 'Staatliches', cursive;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 18px;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: grey;
+    border:1px solid grey;
+    background-color: transparent;
+}
+#registration-button-disabled:focus {
+    outline: 0;
+}
+#registration-button-disabled:hover {
+    cursor: default;
+}
+#registration-button-active:hover {
+    background-color: cornflowerblue;
+    color: white;
+    cursor: pointer;
+}
+#registration-button-active:focus {
+    outline: 0;
+}
+/*////////////*/
+/*LOBBY SCREEN*/
+/*////////////*/
+#lobby-container {
+    background-color: white;
+    box-shadow: 0 0 7px 1px rgba(128,128,128,1);
+    margin: 300px auto;
+    padding: 20px 50px;
+    width: 400px;
+}
+.lobby-player-name {
+    cursor: default;
+    font-size: 35px;
+}
+#lobby-player-names {
+    text-align: right;
+
+}
+#lobby-player-count {
+    cursor: default;
+    text-align: right;
+    font-size: 40px;
+}
+.lobby-challenge-button {
+    font-family: 'Staatliches', cursive;
+    margin-top: -4px;
+    margin-left: 10px;
+    margin-right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: cornflowerblue;
+    border:1px solid cornflowerblue;
+    background-color: transparent;
+}
+.lobby-challenge-button:hover {
+    background-color: cornflowerblue;
+    border-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+.lobby-challenge-button:focus {
+    outline: 0;
+    border-color: transparent;
+    background-color: transparent;
+}
+/*////////////*/
+/*GAME DISPLAY*/
+/*////////////*/
 .container {
     padding: 20px;
     max-width: 1080px;
@@ -352,7 +489,3 @@ button:focus {
     grid-column: 2;
     grid-row: 2;
 }
-/*html {*/
-/*  background:  url(http://upload.wikimedia.org/wikipedia/commons/d/dd/Muybridge_race_horse_animated.gif) no-repeat center center fixed;*/
-/*  background-size: cover;*/
-/*}*/

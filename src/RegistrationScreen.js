@@ -1,6 +1,6 @@
 import React from 'react';
 import {LobbyScreen} from './LobbyScreen';
-import './style/lobby.css'
+import './style/game.css'
 
 export class RegistrationScreen extends React.Component {
     constructor(props) {
@@ -24,7 +24,7 @@ export class RegistrationScreen extends React.Component {
         }
         this.setState({
             nameAdded: true
-        })
+        });
     };
 
     render() {
@@ -34,7 +34,7 @@ export class RegistrationScreen extends React.Component {
                     <div id="registration-container">
                         <form onSubmit={this.changeScreen} id="registration-form">
                             <div id="registration-title">BATTLESHIP</div>
-                            <input id={this.state.playerName === "" ? "registration-input-disabled" : "registration-input-active"} onChange={this.changeName} placeholder="Please enter your name" type="text"></input>
+                            <input id={this.state.playerName === "" ? "registration-input-disabled" : "registration-input-active"} onChange={this.changeName} placeholder="Your name" type="text"></input>
                             <input id={this.state.playerName === "" ? "registration-button-disabled" : "registration-button-active"} type="submit" value="Continue"></input>
                         </form>
                     </div>
