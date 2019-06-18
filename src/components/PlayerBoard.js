@@ -15,9 +15,10 @@ export class PlayerBoard extends React.Component {
             let squares = [];
 
             for (let j = 0; j < 10; j++) {
-                squares.unshift(<PlayerSquare key={j} id={"p" + (idCounter + j)} x={j} y={i} gameState={this.props.gameState}
+                squares.unshift(<PlayerSquare key={j} id={"p" + (idCounter + j)} x={j} y={i} opponentGameState={this.props.opponentGameState}
                                            changePlayersTurn={this.props.changePlayersTurn}
-                                           checkForHit={this.props.checkForHit}/>);
+                                           checkForHit={this.props.checkForHit}
+                                           playersTurn ={this.props.playersTurn} />);
             }
             idCounter += 10;
             rows.push(<p key={i}><span className="boardNumbers">{i + 1}</span> {squares}</p>);

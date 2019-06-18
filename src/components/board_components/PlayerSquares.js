@@ -10,20 +10,20 @@ export class PlayerSquare extends React.Component {
     }
 
     handleClick = () => {
-        if(this.state.clicked) {
+        if(this.state.clicked || !this.props.playersTurn) {
             return;
         }
+        this.props.checkForHit(this.props.x, this.props.y);
+        this.props.changePlayersTurn();
         this.setState({
             clicked: true
         });
-        this.props.checkForHit(this.props.x, this.props.y);
-        this.props.changePlayersTurn();
     };
 
     render() {
         let squareContent;
         if (this.state.clicked) {
-            if (this.props.gameState[this.props.y][this.props.x] === 0) {
+            if (this.props.opponentGameState[this.props.y][this.props.x] === 0 || this.props.opponentGameState[this.props.y][this.props.x] === 6) {
                 squareContent = <i className="far fa-circle fa-lg"> </i>;
             } else {
                 squareContent = <i className="fas fa-times fa-lg"> </i>;

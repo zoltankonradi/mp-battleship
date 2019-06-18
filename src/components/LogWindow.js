@@ -45,7 +45,7 @@ export class LogWindow extends React.Component {
     }
 
     checkShipStatus = (size, x, y) => {
-        const gameState = this.props.gameState;
+        const gameState = this.props.playerGameState;
         let health = 0;
         for (let i = x + 1; i < x + size; i++) {
             try {

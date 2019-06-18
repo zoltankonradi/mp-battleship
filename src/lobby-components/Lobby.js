@@ -5,22 +5,31 @@ import Modal from "react-bootstrap/Modal";
 export class Lobby extends React.Component {
     constructor(props, context) {
         super(props, context);
-
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-
+        this.handleCloseChallengedModal = this.handleCloseChallengedModal.bind(this);
+        this.handleCloseChallengeModal = this.handleCloseChallengeModal.bind(this);
+        this.handleShowChallengeModal = this.handleShowChallengeModal.bind(this);
         this.state = {
-            challengeModal: false,
+            challengeModal: false
         };
     }
 
-    handleClose() {
+    handleClick = (opponentId) => {
+        this.props.challengePlayer(opponentId);
+        this.handleShowChallengeModal();
+    };
+
+    handleCloseChallengeModal() {
         this.setState({ challengeModal: false });
     }
 
-    handleShow() {
+    handleShowChallengeModal() {
         this.setState({ challengeModal: true });
     }
+
+    handleCloseChallengedModal() {
+        this.props.declineChallenge();
+    }
+
     render() {
         const op = this.props.onlinePlayers;
         let players = [];
@@ -29,8 +38,16 @@ export class Lobby extends React.Component {
                 players.push(<div key={"onlinePlayer" + i} className="lobby-player-name">{op[i]}</div>)
             } else {
                 players.push(<div key={"onlinePlayer" + i} className="lobby-player-name">
-                    <Button className="lobby-challenge-button" onClick={this.handleShow}>Challenge</Button>{op[i]}</div>)
+                                <button className="lobby-challenge-button" onClick={() => this.handleClick(this.props.socketIds[i])}>
+                                    Challenge
+                                </button>
+                                {op[i]}
+                            </div>)
             }
+        }
+        if (this.props.challengeDeclined) {
+            this.handleCloseChallengeModal();
+            this.props.changeChallengeDeclined();
         }
         return (
             <>
@@ -42,17 +59,28 @@ export class Lobby extends React.Component {
                         {players}
                     </div>
                 </div>
-                <Modal show={this.state.challengeModal} onHide={this.handleClose}>
+                <Modal show={this.state.challengeModal} onHide={this.handleCloseChallengeModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Request sent</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Body>Waiting for response...</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
-                            Close
+                        <Button variant="secondary" onClick={this.handleCloseChallengeModal}>
+                            Cancel
                         </Button>
-                        <Button variant="primary" onClick={this.handleClose}>
-                            Save Changes
+                    </Modal.Footer>
+                </Modal>
+                <Modal show={this.props.challengeReceived} onHide={this.handleCloseChallengedModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Challenge received from {this.props.playerOpponent}!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Waiting for response...</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleCloseChallengedModal}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={this.props.challengeAccepted}>
+                            Accept
                         </Button>
                     </Modal.Footer>
                 </Modal>

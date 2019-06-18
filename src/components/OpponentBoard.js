@@ -15,11 +15,11 @@ export class OpponentBoard extends React.Component {
             let squares = [];
 
             for (let j = 0; j < 10; j++) {
-                squares.unshift(<OpponentSquare key={j} id={"o" + (idCounter + j)} x={j} y={i} gameState={this.props.gameState[i][j]}/>);
+                squares.unshift(<OpponentSquare key={j} id={"o" + (idCounter + j)} x={j} y={i} playerGameState={this.props.playerGameState[i][j]}/>);
             }
 
             idCounter += 10;
-            rows.push(<p key={i}><span className="boardNumbers">{i + 1}</span> {squares}</p>);
+            rows.push(<p key={i}><span className="boardNumbers">{i + 1}</span>{squares}</p>);
         }
 
         return rows;

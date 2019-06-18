@@ -5,8 +5,6 @@ import {LogWindow} from './components/LogWindow';
 import {ChatWindow} from "./components/ChatWindow";
 import {StatusWindow} from "./components/StatusWindow";
 import {TurnDisplay} from "./components/TurnDisplay";
-// import './style/game.css';
-// import SocketIOClient from 'socket.io-client';
 
 export class App extends React.Component {
     constructor(props) {
@@ -17,10 +15,12 @@ export class App extends React.Component {
         this.resetHitLogger = this.resetHitLogger.bind(this);
         this.changePlayerFleetCount = this.changePlayerFleetCount.bind(this);
         this.state = {
-            playerFleetStatus: [4, 3, 2, 1],
+            country: "",
+            playersTurn: false,
             hitLog: ['none', 'none', 'none'],
-            playersTurn: true,
-            gameState: [
+            playerFleetStatus: [4, 3, 2, 1],
+            opponentFleetStatus: [4, 3, 2, 1],
+            playerGameState: [
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0],
@@ -32,11 +32,19 @@ export class App extends React.Component {
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0]
             ],
-            opponentFleetStatus: [4, 3, 2, 1]
-        }
-    }
-
-    componentWillMount() {
+            opponentGameState: [
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0]
+            ]
+        };
         this.generateShip(4);
         this.generateShip(3);
         this.generateShip(3);
@@ -47,8 +55,46 @@ export class App extends React.Component {
         this.generateShip(1);
         this.generateShip(1);
         this.generateShip(1);
+        this.props.socket.emit('send initial game state', {
+            opponentId: this.props.opponentId,
+            playerFleetStatus: this.state.playerFleetStatus,
+            playerGameState: this.state.playerGameState,
+        });
+    }
+    //////////////////////////
+    // SERVER COMMUNICATION //
+    //////////////////////////
+    componentDidMount() {
+        this.props.socket.on('get game state', (data) => {
+            this.setState({
+                playersTurn: true,
+                playerGameState: data.playerGameState,
+                playerFleetStatus: data.playerFleetStatus
+            })
+        });
+        this.props.socket.on('get initial game state', (data) => {
+            this.setState({
+                opponentGameState: data.opponentGameState,
+                opponentFleetStatus: data.opponentFleetStatus
+            });
+            this.setUpCountries();
+        });
+        this.setState({
+            playersTurn: this.props.challenged
+        });
     }
 
+    setUpCountries = () => {
+        if (this.state.playersTurn) {
+            this.setState({ country: "japan" });
+        } else {
+            this.setState({ country: "usa" });
+        }
+    };
+
+    ////////////////
+    // GAME LOGIC //
+    ////////////////
     generateShip = (size) => {
         const orientation = Math.round((Math.random())) === 1 ? 'h' : 'v';
         const representations = [1, 2, 3, 4];
@@ -59,12 +105,12 @@ export class App extends React.Component {
                 const x = Math.floor((Math.random() * (10 - size)));
                 console.log(`GenerateShip => x: ${x}, y: ${y}, alignment: h`);
                 if (this.checkPlacement(size, y, x, 'h')) {
-                    let board = this.state.gameState;
+                    let board = this.state.playerGameState;
                     for (let i = x; i < x + size; i++) {
                         board[y][i] = representation;
                     }
                     this.setState({
-                        gameState: board
+                        playerGameState: board
                     });
                     break;
                 }
@@ -75,12 +121,12 @@ export class App extends React.Component {
                 const x = Math.floor((Math.random() * 10));
                 console.log(`GenerateShip => x: ${x}, y: ${y}, alignment: v`);
                 if(this.checkPlacement(size, y, x, 'v')) {
-                    let board = this.state.gameState;
+                    let board = this.state.playerGameState;
                     for (let i = y; i < y + size; i++) {
                         board[i][x] = representation;
                     }
                     this.setState({
-                        gameState: board
+                        playerGameState: board
                     });
                     break;
                 }
@@ -89,7 +135,7 @@ export class App extends React.Component {
     };
 
     checkPlacement = (size, y, x, alignment) => {
-        const gs = this.state.gameState;
+        const gs = this.state.playerGameState;
         if (alignment === 'h') {
             for (let i = x - 1; i < x + size + 1; i++) {
                 try {
@@ -137,19 +183,21 @@ export class App extends React.Component {
     };
 
     checkForHit = (x, y) => {
-        if (this.state.gameState[y][x] === 0) {
+        if (this.state.opponentGameState[y][x] === 0) {
             this.setState({ hitLog: [0, x, y] });
-        } else if(this.state.gameState[y][x] === 1) {
+            this.changeGameState(x, y, false);
+        } else if(this.state.opponentGameState[y][x] === 1) {
             this.setState({ hitLog: [1, x, y] });
-        } else if(this.state.gameState[y][x] === 2) {
+            this.changeGameState(x, y, true);
+        } else if(this.state.opponentGameState[y][x] === 2) {
             this.setState({ hitLog: [2, x, y] });
-            this.changeGameState(x, y);
-        } else if(this.state.gameState[y][x] === 3) {
+            this.changeGameState(x, y, true);
+        } else if(this.state.opponentGameState[y][x] === 3) {
             this.setState({ hitLog: [3, x, y] });
-            this.changeGameState(x, y);
+            this.changeGameState(x, y, true);
         } else {
             this.setState({ hitLog: [4, x, y] });
-            this.changeGameState(x, y);
+            this.changeGameState(x, y, true);
         }
     };
 
@@ -157,14 +205,23 @@ export class App extends React.Component {
         this.setState({ hitLog: ['none', 'none', 'none'] })
     };
 
-    changeGameState = (x, y) => {
-        let currentGameState = this.state.gameState;
-        currentGameState[y][x] = 5;
-        this.setState({ gameState: currentGameState })
+    changeGameState = (x, y, hit) => {
+        let currentGameState = this.state.opponentGameState;
+        if (hit) {
+            currentGameState[y][x] = 5;
+        } else {
+            currentGameState[y][x] = 6;
+        }
+        this.setState({ opponentGameState: currentGameState })
     };
 
     changePlayersTurn = () => {
         if (this.state.playersTurn) { this.setState({ playersTurn: false }) }
+        this.props.socket.emit('send game state', {
+            opponentId: this.props.opponentId,
+            opponentFleetStatus: this.state.opponentFleetStatus,
+            opponentGameState: this.state.opponentGameState,
+        });
     };
 
     changePlayerFleetCount = (size) => {
@@ -173,19 +230,11 @@ export class App extends React.Component {
         this.setState({ playerFleetStatus: fleet })
     };
 
-    ///////// TEMP /////////
-    forcePlayerChange = () => {
-        this.setState({
-            hitLog: [2, 5, 5],
-            playersTurn: true
-        })
-    };
-
     render() {
         return (
-            <div className="container">
+            <div className="game-container">
                 <div id="feature1">
-                    <LogWindow resetHitLogger={this.resetHitLogger} hitLog={this.state.hitLog} gameState={this.state.gameState}
+                    <LogWindow resetHitLogger={this.resetHitLogger} hitLog={this.state.hitLog} gameState={this.state.playerGameState}
                                playersTurn={this.state.playersTurn} changePlayerFleetCount={this.changePlayerFleetCount}/>
                 </div>
                 <div id="feature2">
@@ -195,16 +244,15 @@ export class App extends React.Component {
                     <ChatWindow />
                 </div>
                 <div id="feature4">
-                    <PlayerBoard gameState={this.state.gameState} playersTurn={this.state.playersTurn}
+                    <PlayerBoard opponentGameState={this.state.opponentGameState} playersTurn={this.state.playersTurn}
                                  changePlayersTurn={this.changePlayersTurn} checkForHit={this.checkForHit} />
                 </div>
                 <div id="feature5">
-                    <TurnDisplay playersTurn={this.state.playersTurn}/>
+                    <TurnDisplay country={this.state.country} playersTurn={this.state.playersTurn}/>
                 </div>
                 <div id="feature6">
-                    <OpponentBoard gameState={this.state.gameState} playersTurn={this.state.playersTurn}/>
+                    <OpponentBoard playerGameState={this.state.playerGameState} playersTurn={this.state.playersTurn}/>
                 </div>
-                <button onClick={this.forcePlayerChange}>ForceChange</button>
             </div>
         );
     }
