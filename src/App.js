@@ -17,7 +17,7 @@ export class App extends React.Component {
         this.state = {
             country: "",
             playersTurn: false,
-            hitLog: ['none', 'none', 'none'],
+            hitLog: ['none', 'none', 'none', 'none'],
             playerFleetStatus: [4, 3, 2, 1],
             opponentFleetStatus: [4, 3, 2, 1],
             playerGameState: [
@@ -68,6 +68,7 @@ export class App extends React.Component {
         this.props.socket.on('get game state', (data) => {
             this.setState({
                 playersTurn: true,
+                hitLog: data.hitLog,
                 playerGameState: data.playerGameState,
                 playerFleetStatus: data.playerFleetStatus
             })
@@ -183,26 +184,83 @@ export class App extends React.Component {
     };
 
     checkForHit = (x, y) => {
+        let hitLog;
         if (this.state.opponentGameState[y][x] === 0) {
-            this.setState({ hitLog: [0, x, y] });
+            hitLog = [0, x, y, 0, 1];
+            this.setState({ hitLog: [0, x, y, 0, 0] });
             this.changeGameState(x, y, false);
         } else if(this.state.opponentGameState[y][x] === 1) {
-            this.setState({ hitLog: [1, x, y] });
+            hitLog = [1, x, y, 0, 1];
+            this.setState({ hitLog: [1, x, y, 0, 0] });
             this.changeGameState(x, y, true);
+            this.changePlayerFleetCount(1);
         } else if(this.state.opponentGameState[y][x] === 2) {
-            this.setState({ hitLog: [2, x, y] });
+            const health = this.checkShipStatus(2, x, y);
+            hitLog = [2, x, y, health, 1];
+            this.setState({ hitLog: [2, x, y, health, 0] });
             this.changeGameState(x, y, true);
         } else if(this.state.opponentGameState[y][x] === 3) {
-            this.setState({ hitLog: [3, x, y] });
+            const health = this.checkShipStatus(3, x, y);
+            hitLog = [3, x, y, health, 1];
+            this.setState({ hitLog: [3, x, y, health, 0] });
             this.changeGameState(x, y, true);
         } else {
-            this.setState({ hitLog: [4, x, y] });
+            const health = this.checkShipStatus(4, x, y);
+            hitLog = [4, x, y, health, 1];
+            this.setState({ hitLog: [4, x, y, health, 0] });
             this.changeGameState(x, y, true);
         }
+        return hitLog;
+    };
+
+    checkShipStatus = (size, x, y) => {
+        const gameState = this.state.opponentGameState;
+        let health = 0;
+        for (let i = x + 1; i < x + size; i++) {
+            try {
+                if (gameState[y][i] === 0) {
+                    break;
+                } else if (gameState[y][i] === size) {
+                    health++;
+                }
+            } catch (e) { console.log(`checkShipStatus E => X: ${i} Y: ${y}`); }
+
+        }
+        for (let i = x - 1; i > x - size; i--) {
+            try {
+                if (gameState[y][i] === 0) {
+                    break;
+                } else if (gameState[y][i] === size) {
+                    health++;
+                }
+            } catch (e) { console.log(`checkShipStatus E => X: ${i} Y: ${y}`); }
+        }
+        if (health === 0) {
+            for (let i = y - 1; i > y - size; i--) {
+                try {
+                    if (gameState[i][x] === 0) {
+                        break;
+                    } else if (gameState[i][x] === size) {
+                        health++;
+                    }
+                } catch (e) { console.log(`checkShipStatus E => X: ${y} Y: ${i}`); }
+            }
+            for (let i = y + 1; i < y + size; i++) {
+                try {
+                    if (gameState[i][x] === 0) {
+                        break;
+                    } else if (gameState[i][x] === size) {
+                        health++;
+                    }
+                } catch (e) { console.log(`checkShipStatus E => X: ${y} Y: ${i}`); }
+            }
+        }
+        if (health === 0) { this.changePlayerFleetCount(size); }
+        return health;
     };
 
     resetHitLogger = () => {
-        this.setState({ hitLog: ['none', 'none', 'none'] })
+        this.setState({ hitLog: ['none', 'none', 'none', 'none', 'none'] })
     };
 
     changeGameState = (x, y, hit) => {
@@ -215,10 +273,11 @@ export class App extends React.Component {
         this.setState({ opponentGameState: currentGameState })
     };
 
-    changePlayersTurn = () => {
+    changePlayersTurn = (hitLog) => {
         if (this.state.playersTurn) { this.setState({ playersTurn: false }) }
         this.props.socket.emit('send game state', {
             opponentId: this.props.opponentId,
+            hitLog: hitLog,
             opponentFleetStatus: this.state.opponentFleetStatus,
             opponentGameState: this.state.opponentGameState,
         });
@@ -238,7 +297,8 @@ export class App extends React.Component {
                                playersTurn={this.state.playersTurn} changePlayerFleetCount={this.changePlayerFleetCount}/>
                 </div>
                 <div id="feature2">
-                    <StatusWindow playerFleetStatus={this.state.playerFleetStatus} opponentFleetStatus={this.state.opponentFleetStatus}/>
+                    <StatusWindow playerFleetStatus={this.state.playerFleetStatus} country={this.state.country}
+                                  opponentFleetStatus={this.state.opponentFleetStatus}/>
                 </div>
                 <div id="feature3">
                     <ChatWindow />

@@ -41,7 +41,7 @@ io.sockets.on('connection', (socket) =>{
         io.to(opponentId).emit('accepted', {opponentId:socket.id, opponentName: socket.playerName});
     });
     socket.on('send game state', (data) => {
-        io.to(data.opponentId).emit('get game state', {playerGameState: data.opponentGameState, playerFleetStatus: data.opponentFleetStatus})
+        io.to(data.opponentId).emit('get game state', {playerGameState: data.opponentGameState, hitLog: data.hitLog, playerFleetStatus: data.opponentFleetStatus})
     });
     socket.on('send initial game state', (data) => {
         io.to(data.opponentId).emit('get initial game state', {opponentGameState: data.playerGameState, opponentFleetStatus: data.playerFleetStatus})

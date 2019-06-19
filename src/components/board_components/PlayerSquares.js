@@ -13,8 +13,8 @@ export class PlayerSquare extends React.Component {
         if(this.state.clicked || !this.props.playersTurn) {
             return;
         }
-        this.props.checkForHit(this.props.x, this.props.y);
-        this.props.changePlayersTurn();
+        const hitLog = this.props.checkForHit(this.props.x, this.props.y);
+        this.props.changePlayersTurn(hitLog);
         this.setState({
             clicked: true
         });

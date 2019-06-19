@@ -19,6 +19,7 @@ p {
     display: grid;
     grid-template-columns: auto auto;
     grid-auto-rows: minmax(100px, auto);
+    animation: fadein1 2s;
 }
 #feature1 {
     grid-column: 1;
@@ -82,6 +83,7 @@ button:focus {
     margin-left: -1px;
 }
 .fas.fa-square-full {
+    animation: fadein 1s;
     margin-top: 5px;
     margin-left: 2px;
 }
@@ -381,12 +383,24 @@ button:focus {
 /*///////////////////*/
 /*REGISTRATION SCREEN*/
 /*///////////////////*/
+#registration-screen {
+    min-height: 100vh;
+    background: url(style_images/bs1-firing.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 #registration-container {
     background-color: white;
     box-shadow: 0 0 7px 1px rgba(128,128,128,1);
-    margin: 300px auto;
     padding: 50px;
     width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 #registration-form {
     padding-left: 25px;
@@ -472,20 +486,33 @@ button:focus {
 /*////////////*/
 /*LOBBY SCREEN*/
 /*////////////*/
+#lobby-screen {
+    min-height: 100vh;
+    background: url(style_images/bs2-firing.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 #lobby-container {
     background-color: white;
     box-shadow: 0 0 7px 1px rgba(128,128,128,1);
-    margin: 300px auto;
     padding: 20px 50px;
     width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 .lobby-player-name {
     cursor: default;
     font-size: 35px;
+    padding: 0 5px;
+    margin-bottom: 10px;
 }
 #lobby-player-names {
     text-align: right;
-
 }
 #lobby-player-count {
     cursor: default;
@@ -494,8 +521,6 @@ button:focus {
 }
 .lobby-challenge-button {
     font-family: 'Staatliches', cursive;
-    margin-top: -4px;
-    margin-left: 10px;
     margin-right: 20px;
     font-size: 20px;
     font-weight: bold;
