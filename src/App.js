@@ -284,9 +284,9 @@ export class App extends React.Component {
     };
 
     changePlayerFleetCount = (size) => {
-        let fleet = this.state.playerFleetStatus;
+        let fleet = this.state.opponentFleetStatus;
         fleet[size - 1] -= 1;
-        this.setState({ playerFleetStatus: fleet })
+        this.setState({ opponentFleetStatus: fleet })
     };
 
     render() {
