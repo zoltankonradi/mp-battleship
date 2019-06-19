@@ -48,7 +48,7 @@ p {
 /*///////*/
 /*BUTTONS*/
 /*///////*/
-.square {
+.square-opponent {
     display: inline-block;
     justify-content: center;
     -webkit-box-shadow: 0 0 3px 1px rgba(0,0,0,0.75);
@@ -62,6 +62,25 @@ p {
     border-style: solid;
     border-width: 0;
     float: right;
+}
+.square-player {
+    display: inline-block;
+    justify-content: center;
+    -webkit-box-shadow: 0 0 3px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 0 3px 1px rgba(0,0,0,0.75);
+    box-shadow: 0 0 3px 1px rgba(0,0,0,0.75);
+    width: 30px;
+    height: 30px;
+    margin: -8px 3px;
+    background-color: whitesmoke;
+    color: #373737;
+    border-style: solid;
+    border-width: 0;
+    float: right;
+}
+.square-player:hover {
+    background-color: lightblue;
+    animation: fadein 1s;
 }
 button:focus {
     transition: 0.4s;
@@ -555,34 +574,45 @@ button:focus {
     margin: 10px 0;
 }
 .chat-message-player {
+    cursor: default;
     padding: 3px;
     margin: 11px 10px;
     text-align: right;
     font-size: 20px;
+}
+.chat-player-name {
+    border-radius: 5px;
+    padding: 5px;
     background-color: lightblue;
+    box-shadow: 0 0 5px 1px rgba(173,216,230,1);
 }
 .chat-message-opponent {
+    cursor: default;
     padding: 3px;
     margin: 11px 10px;
     font-size: 20px;
+}
+.chat-opponent-name {
+    padding: 5px;
+    border-radius: 5px;
     background-color: #ff8888;
+    box-shadow: 0 0 5px 1px rgba(255,136,136,1);
 }
 #chat-text-area-active {
     border-radius: 5px;
-    width: 380px;
-    height: 30px;
-    margin-left: 10px;
+    width: 393px;
+    height: 32px;
     border:1px solid cornflowerblue;
+    box-shadow: 0 0 2px 1px rgba(100, 149, 237, 1);
 }
 #chat-text-area-disabled {
     border-radius: 5px;
-    width: 380px;
-    height: 30px;
-    margin-left: 10px;
-    border:1px solid grey;
+    width: 393px;
+    height: 32px;
+    box-shadow: 0 0 2px 1px rgba(128, 128, 128, 1);
 }
 #chat-button-active {
-    margin-left: 10px;
+    margin-left: 15px;
     font-family: 'Staatliches', cursive;
     padding: 0 15px;
     font-size: 20px;
@@ -590,13 +620,21 @@ button:focus {
     color: cornflowerblue;
     border:1px solid cornflowerblue;
     background-color: transparent;
+    box-shadow: 0 0 2px 1px rgba(100, 149, 237, 1);
 }
 #chat-button-active:hover {
     background-color: cornflowerblue;
     color: white;
 }
+#chat-messages {
+    background-color: whitesmoke;
+    box-shadow: inset 0 0 3px 1px rgba(128, 128, 128, 1);
+    padding: 5px 0 5px 0;
+    margin-bottom: 5px;
+}
 #chat-button-disabled {
-    margin-left: 10px;
+    cursor: default;
+    margin-left: 15px;
     font-family: 'Staatliches', cursive;
     padding: 0 15px;
     font-size: 20px;
@@ -604,6 +642,7 @@ button:focus {
     color: grey;
     border:1px solid grey;
     background-color: transparent;
+    box-shadow: 0 0 2px 1px rgba(128, 128, 128, 1);
 }
 #chat-button-disabled:focus,
 #chat-button-active:focus,

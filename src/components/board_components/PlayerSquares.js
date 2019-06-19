@@ -32,7 +32,7 @@ export class PlayerSquare extends React.Component {
             squareContent = '.';
         }
         return (
-            <button className={`square ${this.state.clicked ? 'black' : 'white'}`} onClick={this.handleClick} id={this.props.id}>
+            <button className={`square-player ${this.state.clicked ? 'black' : 'white'}`} onClick={this.handleClick} id={this.props.id}>
                 {squareContent}
             </button>
         )

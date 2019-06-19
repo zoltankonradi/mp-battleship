@@ -35,7 +35,7 @@ export class ChatWindow extends React.Component {
             const messages = this.state.messages;
             let key = this.state.keyCounter;
 
-            messages.push(<p key={key++} className="chat-message-player">{newMessage}</p>);
+            messages.push(<p key={key++} className="chat-message-player">{newMessage + "   "}<span className="chat-player-name">{":" + this.props.playerName}</span></p>);
             this.setState({ keyCounter: key });
             if (messages.length > 5) {
                 messages.shift();
@@ -48,7 +48,7 @@ export class ChatWindow extends React.Component {
             const newMessage = this.state.opponentMessage;
             const messages = this.state.messages;
             let key = this.state.keyCounter;
-            messages.push(<p key={key++} className="chat-message-opponent">{newMessage}</p>);
+            messages.push(<p key={key++} className="chat-message-opponent"><span className="chat-opponent-name">{this.props.playerOpponent + ":"}</span>{"   " + newMessage}</p>);
             this.setState({ keyCounter: key });
             if (messages.length > 5) {
                 messages.shift();
@@ -75,6 +75,13 @@ export class ChatWindow extends React.Component {
         })
     };
 
+    handleKeyPress = (e) => {
+        if (this.state.message === "") { return; }
+        if(e.key === 'Enter'){
+            this.addMessage(true);
+        }
+    };
+
     render() {
         if (this.state.opponentMessage !== "") {
             this.addMessage(false);
@@ -90,7 +97,7 @@ export class ChatWindow extends React.Component {
                 <div className="chat-functions">
                     <form onSubmit={this.sendMessage} id="chat-form">
                         <input onChange={this.changeMessage} value={this.state.message} type="text" id={this.state.message === "" ? "chat-text-area-disabled" : "chat-text-area-active"}></input>
-                        <input id={this.state.message === "" ? "chat-button-disabled" : "chat-button-active"} type="submit" value="Send"></input>
+                        <input onKeyPress={this.handleKeyPress} id={this.state.message === "" ? "chat-button-disabled" : "chat-button-active"} type="submit" value="Send"></input>
                     </form>
                 </div>
             </div>
