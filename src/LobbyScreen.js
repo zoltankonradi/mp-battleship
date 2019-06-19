@@ -92,7 +92,7 @@ export class LobbyScreen extends React.Component {
     render() {
         return (
             <>
-                {this.state.inGame ? <App challenged={this.state.challenged} socket={this.state.socket} opponentId={this.state.opponentId} playerOpponent={this.state.playerOpponent}/> :
+                {this.state.inGame ? <App playerName={this.props.playerName} challenged={this.state.challenged} socket={this.state.socket} opponentId={this.state.opponentId} playerOpponent={this.state.playerOpponent}/> :
                     <div id="lobby-screen">
                         <Lobby challengePlayer={this.challengePlayer}
                                playerName={this.props.playerName}

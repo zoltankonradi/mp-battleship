@@ -67,7 +67,6 @@ button:focus {
     transition: 0.4s;
     outline: 0;
     opacity: 1;
-    background-color: lightblue;
 }
 .white {
     color: whitesmoke;
@@ -77,15 +76,15 @@ button:focus {
 }
 .fas.fa-times.fa-lg {
     margin-top: 5px;
+    margin-left: -1px;
 }
 .far.fa-circle.fa-lg {
     margin-top: 5px;
-    margin-left: -1px;
+    margin-left: -2px;
 }
 .fas.fa-square-full {
     animation: fadein 1s;
     margin-top: 5px;
-    margin-left: 2px;
 }
 /*//////////*/
 /*RIGHT SIDE*/
@@ -183,7 +182,7 @@ button:focus {
 #chat-window {
     box-shadow: 0 0 5px 1px rgba(128,128,128,1);
     padding: 10px 10px;
-    margin-top: 50px;
+    margin-top: 60px;
     margin-left: 45px;
     width: 500px;
     height: 350px;
@@ -268,6 +267,7 @@ button:focus {
 #log-messages p + p + p + p + p {
     opacity: 1;
 }
+#chat-title,
 #status-title,
 #log-title {
     font-size: 25px;
@@ -543,4 +543,71 @@ button:focus {
     outline: 0;
     border-color: transparent;
     background-color: transparent;
+}
+/*///////////*/
+/*CHAT WINDOW*/
+/*///////////*/
+.chat-p {
+    background-color: transparent;
+    color: transparent;
+    cursor: default;
+    font-size: 25px;
+    margin: 10px 0;
+}
+.chat-message-player {
+    padding: 3px;
+    margin: 11px 10px;
+    text-align: right;
+    font-size: 20px;
+    background-color: lightblue;
+}
+.chat-message-opponent {
+    padding: 3px;
+    margin: 11px 10px;
+    font-size: 20px;
+    background-color: #ff8888;
+}
+#chat-text-area-active {
+    border-radius: 5px;
+    width: 380px;
+    height: 30px;
+    margin-left: 10px;
+    border:1px solid cornflowerblue;
+}
+#chat-text-area-disabled {
+    border-radius: 5px;
+    width: 380px;
+    height: 30px;
+    margin-left: 10px;
+    border:1px solid grey;
+}
+#chat-button-active {
+    margin-left: 10px;
+    font-family: 'Staatliches', cursive;
+    padding: 0 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    color: cornflowerblue;
+    border:1px solid cornflowerblue;
+    background-color: transparent;
+}
+#chat-button-active:hover {
+    background-color: cornflowerblue;
+    color: white;
+}
+#chat-button-disabled {
+    margin-left: 10px;
+    font-family: 'Staatliches', cursive;
+    padding: 0 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    color: grey;
+    border:1px solid grey;
+    background-color: transparent;
+}
+#chat-button-disabled:focus,
+#chat-button-active:focus,
+#chat-text-area-active:focus,
+#chat-text-area-disabled:focus {
+    outline: 0;
 }

@@ -301,7 +301,7 @@ export class App extends React.Component {
                                   opponentFleetStatus={this.state.opponentFleetStatus}/>
                 </div>
                 <div id="feature3">
-                    <ChatWindow />
+                    <ChatWindow playerName={this.props.playerName} playerOpponent={this.props.playerOpponent} socket={this.props.socket} opponentId={this.props.opponentId}/>
                 </div>
                 <div id="feature4">
                     <PlayerBoard opponentGameState={this.state.opponentGameState} playersTurn={this.state.playersTurn}
