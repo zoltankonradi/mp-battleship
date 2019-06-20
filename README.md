@@ -13,3 +13,6 @@ Under the fleet status window you can see a chat window. You can type anything y
 Once one of the players fleet is destroyed a modal pops up showing the result screen. After closing the modal you get placed back in to the lobby.
 
 ![App Preview](battleship.jpg)
+![App Preview](battleship1.jpg)
+![App Preview](battleship2.jpg)
+![App Preview](battleship3.jpg)
