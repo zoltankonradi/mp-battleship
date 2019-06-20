@@ -5,6 +5,10 @@ import {LogWindow} from './components/LogWindow';
 import {ChatWindow} from "./components/ChatWindow";
 import {StatusWindow} from "./components/StatusWindow";
 import {TurnDisplay} from "./components/TurnDisplay";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Victory from "./style/style_images/bs-victory.gif";
+import Defeat from "./style/style_images/bs-defeat.gif";
 
 export class App extends React.Component {
     constructor(props) {
@@ -14,7 +18,10 @@ export class App extends React.Component {
         this.checkForHit = this.checkForHit.bind(this);
         this.resetHitLogger = this.resetHitLogger.bind(this);
         this.changePlayerFleetCount = this.changePlayerFleetCount.bind(this);
+        this.endGame = this.endGame.bind(this);
         this.state = {
+            gameWon: false,
+            gameWonBy: "",
             country: "",
             playersTurn: false,
             hitLog: ['none', 'none', 'none', 'none'],
@@ -71,7 +78,8 @@ export class App extends React.Component {
                 hitLog: data.hitLog,
                 playerGameState: data.playerGameState,
                 playerFleetStatus: data.playerFleetStatus
-            })
+            });
+            this.endGame();
         });
         this.props.socket.on('get initial game state', (data) => {
             this.setState({
@@ -286,7 +294,27 @@ export class App extends React.Component {
     changePlayerFleetCount = (size) => {
         let fleet = this.state.opponentFleetStatus;
         fleet[size - 1] -= 1;
-        this.setState({ opponentFleetStatus: fleet })
+        this.setState({ opponentFleetStatus: fleet });
+        this.endGame();
+    };
+
+    endGame = () => {
+        if (JSON.stringify(this.state.playerFleetStatus) === JSON.stringify([0, 0, 0, 0])) {
+            this.setState({
+                gameWon: true,
+                gameWonBy: "opponent"
+            });
+        }
+        if (JSON.stringify(this.state.opponentFleetStatus) === JSON.stringify([0, 0, 0, 0])) {
+            this.setState({
+                gameWon: true,
+                gameWonBy: "player"
+            });
+        }
+    };
+
+    closeModal = () => {
+        this.props.changeInGameStatus();
     };
 
     render() {
@@ -313,6 +341,17 @@ export class App extends React.Component {
                 <div id="feature6">
                     <OpponentBoard playerGameState={this.state.playerGameState} playersTurn={this.state.playersTurn}/>
                 </div>
+                <Modal show={this.state.gameWon} onHide={this.closeModal}>
+                    <Modal.Body>
+                        <img id='game-won-pic' alt="" src={this.state.gameWonBy === "player" ? Victory : Defeat } />
+                        <div id='game-won-text'>{this.state.gameWonBy === "player" ? "Victory!" : "Defeat!"}</div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={this.closeModal}>
+                            Back to lobby
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         );
     }

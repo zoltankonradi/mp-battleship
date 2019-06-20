@@ -10,6 +10,7 @@ export class LobbyScreen extends React.Component {
         this.declineChallenge = this.declineChallenge.bind(this);
         this.changeChallengeDeclined = this.changeChallengeDeclined.bind(this);
         this.challengeAccepted = this.challengeAccepted.bind(this);
+        this.changeInGameStatus = this.changeInGameStatus.bind(this);
         this.state = {
             socket: SocketIOClient("http://localhost:3001"),
             socketIds: [],
@@ -35,20 +36,20 @@ export class LobbyScreen extends React.Component {
                 playerOpponent: data.opponentName,
                 opponentId: data.opponentId,
                 challengeReceived: true
-            })
+            });
         });
         socket.on('challenge declined', () => {
             this.setState({
                 challenged: false,
                 challengeDeclined: true
-            })
+            });
         });
         socket.on('accepted', (data) => {
             this.setState({
                 playerOpponent: data.opponentName,
                 opponentId: data.opponentId,
                 inGame: true
-            })
+            });
         })
     }
 
@@ -56,7 +57,7 @@ export class LobbyScreen extends React.Component {
         this.setState({
             socketIds: data.socketIds,
             onlinePlayers: data.onlinePlayers
-        })
+        });
     };
 
     challengePlayer = (opponentId) => {
@@ -73,26 +74,40 @@ export class LobbyScreen extends React.Component {
             playerOpponent: "",
             opponentId: "",
             challengeReceived: false
-        })
+        });
     };
 
     changeChallengeDeclined = () => {
         this.setState({
             challengeDeclined: false
-        })
+        });
     };
 
     challengeAccepted = () => {
         this.state.socket.emit('challenge accepted', this.state.opponentId);
         this.setState({
             inGame: true
-        })
+        });
+    };
+
+    changeInGameStatus = () => {
+        this.setState({
+            playerOpponent: "",
+            opponentId: "",
+            challenged: false,
+            challengeDeclined: false,
+            challengeReceived: false,
+            inGame: false
+        });
     };
 
     render() {
         return (
             <>
-                {this.state.inGame ? <App playerName={this.props.playerName} challenged={this.state.challenged} socket={this.state.socket} opponentId={this.state.opponentId} playerOpponent={this.state.playerOpponent}/> :
+                {this.state.inGame ? <App playerName={this.props.playerName} challenged={this.state.challenged}
+                                          socket={this.state.socket} opponentId={this.state.opponentId}
+                                          playerOpponent={this.state.playerOpponent}
+                                          changeInGameStatus={this.changeInGameStatus}/> :
                     <div id="lobby-screen">
                         <Lobby challengePlayer={this.challengePlayer}
                                playerName={this.props.playerName}

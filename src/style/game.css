@@ -99,7 +99,7 @@ button:focus {
 }
 .far.fa-circle.fa-lg {
     margin-top: 5px;
-    margin-left: -2px;
+    margin-left: -1px;
 }
 .fas.fa-square-full {
     animation: fadein 1s;
@@ -649,4 +649,18 @@ button:focus {
 #chat-text-area-active:focus,
 #chat-text-area-disabled:focus {
     outline: 0;
+}
+#game-won-pic {
+    width: 350px;
+    margin-left: 60px;
+}
+#game-won-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: default;
 }
