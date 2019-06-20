@@ -319,39 +319,41 @@ export class App extends React.Component {
 
     render() {
         return (
-            <div className="game-container">
-                <div id="feature1">
-                    <LogWindow resetHitLogger={this.resetHitLogger} hitLog={this.state.hitLog} gameState={this.state.playerGameState}
-                               playersTurn={this.state.playersTurn} changePlayerFleetCount={this.changePlayerFleetCount}/>
+            <div id="game-screen" >
+                <div className="game-container">
+                    <div id="feature1">
+                        <LogWindow resetHitLogger={this.resetHitLogger} hitLog={this.state.hitLog} gameState={this.state.playerGameState}
+                                   playersTurn={this.state.playersTurn} changePlayerFleetCount={this.changePlayerFleetCount}/>
+                    </div>
+                    <div id="feature2">
+                        <StatusWindow playerFleetStatus={this.state.playerFleetStatus} country={this.state.country}
+                                      opponentFleetStatus={this.state.opponentFleetStatus}/>
+                    </div>
+                    <div id="feature3">
+                        <ChatWindow playerName={this.props.playerName} playerOpponent={this.props.playerOpponent} socket={this.props.socket} opponentId={this.props.opponentId}/>
+                    </div>
+                    <div id="feature4">
+                        <PlayerBoard opponentGameState={this.state.opponentGameState} playersTurn={this.state.playersTurn}
+                                     changePlayersTurn={this.changePlayersTurn} checkForHit={this.checkForHit} />
+                    </div>
+                    <div id="feature5">
+                        <TurnDisplay country={this.state.country} playersTurn={this.state.playersTurn}/>
+                    </div>
+                    <div id="feature6">
+                        <OpponentBoard playerGameState={this.state.playerGameState} playersTurn={this.state.playersTurn}/>
+                    </div>
+                    <Modal show={this.state.gameWon} onHide={this.closeModal}>
+                        <Modal.Body>
+                            <img id='game-won-pic' alt="" src={this.state.gameWonBy === "player" ? Victory : Defeat } />
+                            <div id='game-won-text'>{this.state.gameWonBy === "player" ? "Victory!" : "Defeat!"}</div>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="primary" onClick={this.closeModal}>
+                                Back to lobby
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
-                <div id="feature2">
-                    <StatusWindow playerFleetStatus={this.state.playerFleetStatus} country={this.state.country}
-                                  opponentFleetStatus={this.state.opponentFleetStatus}/>
-                </div>
-                <div id="feature3">
-                    <ChatWindow playerName={this.props.playerName} playerOpponent={this.props.playerOpponent} socket={this.props.socket} opponentId={this.props.opponentId}/>
-                </div>
-                <div id="feature4">
-                    <PlayerBoard opponentGameState={this.state.opponentGameState} playersTurn={this.state.playersTurn}
-                                 changePlayersTurn={this.changePlayersTurn} checkForHit={this.checkForHit} />
-                </div>
-                <div id="feature5">
-                    <TurnDisplay country={this.state.country} playersTurn={this.state.playersTurn}/>
-                </div>
-                <div id="feature6">
-                    <OpponentBoard playerGameState={this.state.playerGameState} playersTurn={this.state.playersTurn}/>
-                </div>
-                <Modal show={this.state.gameWon} onHide={this.closeModal}>
-                    <Modal.Body>
-                        <img id='game-won-pic' alt="" src={this.state.gameWonBy === "player" ? Victory : Defeat } />
-                        <div id='game-won-text'>{this.state.gameWonBy === "player" ? "Victory!" : "Defeat!"}</div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" onClick={this.closeModal}>
-                            Back to lobby
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
             </div>
         );
     }

@@ -10,10 +10,24 @@ p {
 /*////////////*/
 /*GAME DISPLAY*/
 /*////////////*/
+#game-screen {
+    min-height: 100vh;
+    background: url(style_images/bs_game.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 0;
+    animation: fadein1 2s;
+}
 .game-container {
-    padding: 20px 15px;
+    padding: 30px;
     max-width: 1080px;
-    margin: 20px auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
     background-color: whitesmoke;
     box-shadow: 0 0 10px 0 rgba(128,128,128,1);
     display: grid;
@@ -109,20 +123,26 @@ button:focus {
 /*RIGHT SIDE*/
 /*//////////*/
 #player-board {
-    box-shadow: -5px 0 5px -4px grey, 5px 0 5px -4px grey;
+    box-shadow: -6px 0 6px -4px rgba( 128, 128, 128, .8 ), 6px 0 6px -4px rgba( 128, 128, 128, .8 ), 0 -6px 6px -4px rgba( 128, 128, 128, .8 );
     border-width: 0;
     border-color: transparent;
     display: inline-block;
     padding: 20px 16px;
 }
 #turn-display {
-    box-shadow: -5px 0 5px -4px grey, 5px 0 5px -4px grey;
+    box-shadow: -6px 0 5px -4px rgba( 128, 128, 128, .8 ), 6px 0 5px -4px rgba( 128, 128, 128, .8 );
     width: 405px;
     height: 80px;
     padding: 0 10px;
     display: inline-block;
     color: #373737;
     text-align: center;
+}
+#opponent-board {
+    box-shadow: 3px 5px 5px -1px rgba( 128, 128, 128, .8 ), -3px 5px 5px -1px rgba( 128, 128, 128, .8 );
+    display: inline-block;
+    padding: 20px 16px 10px 16px;
+    margin-top: -41px;
 }
 #turn-display-text1 {
     animation: fadein1 1s;
@@ -170,28 +190,21 @@ button:focus {
         opacity:1;
     }
 }
-#opponent-board {
-    box-shadow: -5px 0 5px -4px grey, 5px 0 5px -4px grey;
-    display: inline-block;
-    padding: 20px 16px 10px 16px;
-    margin-top: -40px;
-}
 /*/////////*/
 /*LEFT SIDE*/
 /*/////////*/
 #log-window {
-    box-shadow: 0 0 5px 1px rgba(128,128,128,1);
+    box-shadow: 0 1px 8px 1px rgba(128,128,128,1);
     padding: 10px 10px;
-    margin-left: 45px;
+    margin-right: 30px;
     width: 500px;
     height: 360px;
     background-color: white;
     display: inline-block;
 }
 #status-window {
-    box-shadow: 0 0 5px 1px rgba(128,128,128,1);
+    box-shadow: 0 1px 8px 1px rgba(128,128,128,1);
     padding: 10px 10px;
-    margin-left: 45px;
     margin-top: -40px;
     width: 500px;
     height: 160px;
@@ -199,10 +212,9 @@ button:focus {
     display: inline-block;
 }
 #chat-window {
-    box-shadow: 0 0 5px 1px rgba(128,128,128,1);
+    box-shadow: 0 1px 8px 1px rgba(128,128,128,1);
     padding: 10px 10px;
     margin-top: 60px;
-    margin-left: 45px;
     width: 500px;
     height: 350px;
     background-color: white;
