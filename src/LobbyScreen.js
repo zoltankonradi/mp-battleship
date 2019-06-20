@@ -12,7 +12,7 @@ export class LobbyScreen extends React.Component {
         this.challengeAccepted = this.challengeAccepted.bind(this);
         this.changeInGameStatus = this.changeInGameStatus.bind(this);
         this.state = {
-            socket: SocketIOClient("http://localhost:3001"),
+            socket: SocketIOClient(process.env.PORT || "http://localhost:3001/"),
             socketIds: [],
             onlinePlayers: [],
             playerOpponent: "",

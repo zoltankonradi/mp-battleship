@@ -10,6 +10,17 @@ let connections = [];
 server.listen(process.env.PORT || 3001);
 console.log('Server running...');
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.resolve('../build/index.html')));
+    app.get('*', function(req, res) {
+        res.sendFile(path.resolve('../build/index.html'));
+    });
+} else {
+    app.get('*', function (req, res) {
+        res.sendFile(path.resolve('../build/index.html'));
+    });
+}
+
 io.sockets.on('connection', (socket) =>{
     connections.push(socket);
     console.log(`Number of sockets connected: ${connections.length}`);
