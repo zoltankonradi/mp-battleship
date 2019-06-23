@@ -12,6 +12,10 @@ Under the fleet status window you can see a chat window. You can type anything y
 
 Once one of the players fleet is destroyed a modal pops up showing the end screen. After closing the modal you get placed back in to the lobby.
 
+The app is deployed on Heroku! Two players are needed (or two browser tabs) to play. 
+
+Link: [MP Battleship](https://mp-battleship.herokuapp.com)
+
 ![App Preview](battleship.jpg)
 ![App Preview](battleship1.jpg)
 ![App Preview](battleship2.jpg)
