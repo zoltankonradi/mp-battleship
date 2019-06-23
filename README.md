@@ -14,7 +14,7 @@ Once one of the players fleet is destroyed a modal pops up showing the end scree
 
 The app is deployed on Heroku! Two players are needed (or two browser tabs) to play. 
 
-Link: [MP Battleship](https://mp-battleship.herokuapp.com)
+Link: [MP Battleship](https://mp-battleship.herokuapp.com) (2019-06-23)
 
 ![App Preview](battleship.jpg)
 ![App Preview](battleship1.jpg)
